@@ -20,6 +20,50 @@ function app(people){
   }
 }
 
+function no(people) {
+  var attr = people.attr;
+  
+  var searchType = promptFor("Which characteristic(s) would you like to use to narrow down your search?", characteristicsList).toLowerCase();
+  people.filter(function(person) {
+    switch(searchType) {
+      case 'ID':
+        var foundPeople = filterById(people);
+        return people.filter(checkId);
+      
+      case 'first name':
+        var foundPeople = filterByFirstName(people);
+
+      case 'last name': 
+        var foundPeople = filterByLastName(people);
+
+      case 'gender':
+        var foundPeople = filterByGender(people);
+      
+      case 'dob':
+        var foundPeople = filterByDob(people);
+
+      case 'height':
+        var foundPeople = filterByHeight(people);
+
+      case 'weight':
+        var foundPeople = filterByWeight(people);
+
+      case 'eye color':
+        var foundPeople = filterByEyeColor(people);
+
+      case 'occupation':
+        var foundPeople = filterByOccupation(people);
+
+      case 'parents':
+        var foundPeople = filterByParents(peolple);
+
+      case 'currentSpouse': 
+      var foundPeople = filterByCurrentSpouse(people);
+    }
+  }
+  
+}
+
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
 
