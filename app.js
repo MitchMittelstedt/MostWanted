@@ -80,6 +80,11 @@ function displayPerson(person){
   // height, weight, age, name, occupation, eye color.
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
+  personInfo += "Age: " + getAge(person.dob) + "\n";
+  personInfo += "Height: " + person.height + "\n";
+  personInfo += "Weight: " + person.weight + "\n";
+  personInfo += "Occupation: " + person.occupation + "\n";
+  personInfo += "Eye Color: " + person.eyeColor + "\n";
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
@@ -100,4 +105,14 @@ function yesNo(input){
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
+}
+
+function getAge(givenDate){
+currentDate = new Date()
+dateSplit = givenDate.split("/")
+if ((currentDate.getMonth() + 1) >= dateSplit[0] && currentDate.getDate() >= dateSplit[1]) {
+return (currentDate.getFullYear() - dateSplit[2])
+} else {
+  return ((currentDate.getFullYear() - dateSplit[2]) - 1)
+}
 }
