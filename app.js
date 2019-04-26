@@ -35,6 +35,7 @@ function mainMenu(person, people){
   switch(displayOption){
     case "info":
     // TODO: get person's info
+    displayPerson
     break;
     case "family":
     // TODO: get person's family
@@ -116,3 +117,29 @@ return (currentDate.getFullYear() - dateSplit[2])
   return ((currentDate.getFullYear() - dateSplit[2]) - 1)
 }
 }
+
+function displayImmediateFamily(person){
+ var personInfo = "First Name: " + person.firstName + "\n"; 
+
+}
+
+function getName(number){
+  identity = people.filter(function(person) {
+    if number == person.id
+      return identity[0].firstName + " " + identity[0].lastName;
+  }
+
+}
+
+function getName(number){
+
+let identity = data.filter(function(person){
+    
+    if (number == person.id) {
+      return true; 
+} else {
+    return false;   
+}});
+
+return identity[0].firstName + " " + identity[0].lastName;
+} 
