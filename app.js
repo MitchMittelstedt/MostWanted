@@ -219,7 +219,10 @@ let childrenList = data.filter(function(person1){
   }else {
 }})
   if(childrenList.length >= 1){
-  return childrenList
+  var childrenNames = ""
+  for (i = 0; i < childrenList.length; i++)
+  childrenNames += childrenList[i].firstName + " " + childrenList[i].lastName + "\n"
+  return  childrenNames
 } else {
   return "No Children"
 }
