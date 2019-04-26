@@ -162,22 +162,38 @@ return (currentDate.getFullYear() - dateSplit[2])
 }
 }
 
-function displayImmediateFamily(person){
- var personInfo = "First Name: " + person.firstName + "\n"; 
+ function displayParents(person){
+ let parents = person.parents
+
+ if (parents.length > 1) {
+  
+
+     var personParentsInfo = "Parents:" + getNameById(parents[0]) + " and " + getNameById(parents[1])
+    return  personParentsInfo 
+} else if (parents.length == 1){
+  var defineFirstParent = "Parent:" + getNameById(parents[0])
+    return defineFirstParent
+} else { 
+  return "Parentless"
+}
+}
+
+ function displaySpouse(person){
+  if (person.currentSpouse == null) {
+  return "unmarried"
+}
+return getNameById(person.currentSpouse)
 
 }
 
-function getName(number){
-  identity = people.filter(function(person) {
-    if number == person.id
-      return identity[0].firstName + " " + identity[0].lastName;
-  }
-
+function getImmediateFamily(person){
+  family = displayParents + "\n" displaySpouse
+  return family
 }
 
-function getName(number){
+function getNameById(number){
 
-let identity = data.filter(function(person){
+let identity = people.filter(function(person){
     
     if (number == person.id) {
       return true; 
@@ -187,3 +203,24 @@ let identity = data.filter(function(person){
 
 return identity[0].firstName + " " + identity[0].lastName;
 } 
+
+
+
+function getChildren(person){
+let childrenList = data.filter(function(person1){
+  if (person1.parents.length >1) {
+    if (person.id == person1.parents[0] || person.id == person1.parents[1]) {
+      return person1
+    } else {
+    }}
+  else if (person.id == person1.parents[0]) {
+    return person1
+
+  }else {
+}})
+  if(childrenList.length >= 1){
+  return childrenList
+} else {
+  return "No Children"
+}
+}
