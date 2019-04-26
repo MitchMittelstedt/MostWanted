@@ -13,56 +13,59 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
+      no(people);
+      
       break;
+
       default:
+    
     app(people); // restart app
       break;
   }
 }
 
 function no(people) {
-  var attr = people.attr;
   
-  var searchType = promptFor("Which characteristic(s) would you like to use to narrow down your search?", characteristicsList).toLowerCase();
-  people.filter(function(person) {
+  var searchType = promptFor("Which characteristic(s) would you like to use to narrow down your search? Enter 'id', 'gender', 'dob', 'height', 'weight', 'eye color', or 'occupation'", otherProperties).toLowerCase();
     switch(searchType) {
-      case 'ID':
-        var foundPeople = filterById(people);
-        return people.filter(checkId);
-      
-      case 'first name':
-        var foundPeople = filterByFirstName(people);
-
-      case 'last name': 
-        var foundPeople = filterByLastName(people);
+      case 'id':
+        var number = promptFor("What is their ID number?", chars)      
+        var foundPeople = getNameById(number, people);
+        return foundPeople;
 
       case 'gender':
-        var foundPeople = filterByGender(people);
+        var gender = promptFor("What is their gender?", chars)
+        var foundPeople = getNameByGender(gender,people);
+        return foundPeople;
       
       case 'dob':
-        var foundPeople = filterByDob(people);
+        var dob = promptFor("What is their age?", chars)
+        var foundPeople = getNameByDob(dob, people);
+        return foundPeople;
 
       case 'height':
-        var foundPeople = filterByHeight(people);
+        var height = promptFor("What is their height?", chars)
+        var foundPeople = getNameByHeight(height, people);
+        return foundPeople;
 
       case 'weight':
-        var foundPeople = filterByWeight(people);
+        var weight = promptFor("What is their weight", chars)
+        var foundPeople = getNameByWeight(weight, people);
+        return foundPeople;
 
       case 'eye color':
-        var foundPeople = filterByEyeColor(people);
+        var eyecolor = promptFor("What is their eye color?", chars)
+        var foundPeople = getNameByEyeColor(eyecolor,people);
+        return foundPeople;
 
       case 'occupation':
-        var foundPeople = filterByOccupation(people);
+        var occupation = promptFor("What is their occupation?", chars)
+        var foundPeople = filterByOccupation(occupation, people);
+        return foundPeople;
 
-      case 'parents':
-        var foundPeople = filterByParents(peolple);
-
-      case 'currentSpouse': 
-      var foundPeople = filterByCurrentSpouse(people);
     }
   }
   
-}
 
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
@@ -142,14 +145,26 @@ function promptFor(question, valid){
   return response;
 }
 
+// function valid(response) {
+//   if(response ==
+// }
+
 // helper function to pass into promptFor to validate yes/no answers
 function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
 
+function otherProperties(input){
+  return input.toLowerCase() == "id" || input.toLowerCase() == "gender" || input.toLowerCase() == "dob" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "eye color" || input.toLowerCase() == "occupation";
+}
+
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
+}
+
+function checkIfNumber(input) {
+
 }
 
 function getAge(givenDate){
@@ -178,18 +193,141 @@ return (currentDate.getFullYear() - dateSplit[2])
 }
 }
 
+function getNameById(number, people){
+
+  let identity = people.filter(function(person){
+      
+      if (number == person.id) {
+        return true; 
+  } 
+  else {
+      return false;   
+  }});
+  return identity[0].firstName + " " + identity[0].lastName;
+}
+// console.log(getNameById(401222887));
+
+
+function getNameByGender(gender, people) {
+  let identity = people.filter(function(person){
+      if (gender == person.gender) {
+      return true;
+      }
+      else {
+      return false;
+      }
+  });
+  var peopleWithThisGender = identity[0].firstName + " " + identity[0].lastName + "\n";
+  for(i = 1; i < identity.length; i++){
+      peopleWithThisGender += identity[i].firstName + " " + identity[i].lastName + "\n";
+  }
+  return peopleWithThisGender;
+}
+// console.log(getNameByGender("male"));
+
+
+function getNameByDob(dob, people) {
+  let identity = people.filter(function(person){
+      if (dob == person.dob) {
+      return true;
+      }
+      else {
+      return false;
+      }
+  });
+  var peopleWithThisDob = identity[0].firstName + " " + identity[0].lastName + "\n";
+  for(i = 1; i < identity.length; i++){
+      peopleWithThisDob += identity[i].firstName + " " + identity[i].lastName + "\n";
+  }
+  return peopleWithThisDob;
  function displaySpouse(person){
   if (person.currentSpouse == null) {
   return "unmarried"
 }
 return getNameById(person.currentSpouse)
 
-}
+ }
 
 function getImmediateFamily(person){
-  family = displayParents + "\n" displaySpouse
-  return family
+  family = displayParents + "\n" + displaySpouse(person);
+  return family;
 }
+// console.log(getNameByDob("1/18/1949"));
+
+
+function getNameByHeight(height, people) {
+  let identity = people.filter(function(person){
+      if (height == person.height) {
+      return true;
+      }
+      else {
+      return false;
+      }
+  });
+  var peopleWithThisHeight = identity[0].firstName + " " + identity[0].lastName + "\n";
+  for(i = 1; i < identity.length; i++){
+      peopleWithThisHeight += identity[i].firstName + " " + identity[i].lastName + "\n";
+  }
+  return peopleWithThisHeight;
+}
+// console.log(getNameByHeight("65"));
+
+
+function getNameByWeight(weight, people) {
+  let identity = people.filter(function(person){
+      if (weight == person.weight) {
+      return true;
+      }
+      else {
+      return false;
+      }
+  });
+  var peopleWithThisWeight = identity[0].firstName + " " + identity[0].lastName + "\n";
+  for(i = 1; i < identity.length; i++){
+      peopleWithThisWeight += identity[i].firstName + " " + identity[i].lastName + "\n";
+  }
+  return peopleWithThisWeight;
+}
+// console.log(getNameByWeight("115"));
+
+
+function getNameByEyeColor(eyeColor, people){
+  
+  let identity = people.filter(function(person){
+    if (eyeColor == person.eyeColor) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  });
+  var peopleWithThisEyeColor = identity[0].firstName + " " + identity[0].lastName + "\n";
+  for (i = 1; i < identity.length; i++) {
+
+      peopleWithThisEyeColor += identity[i].firstName + " " + identity[i].lastName + "\n";
+  }
+return peopleWithThisEyeColor
+}
+// console.log(getNameByEyeColor("brown"));
+
+
+function getNameByOccupation(occupation, people) {
+  let identity = people.filter(function(person){
+      if (occupation == person.occupation) {
+      return true;
+      }
+      else {
+      return false;
+      }
+  });
+  var peopleWithThisOccupation = identity[0].firstName + " " + identity[0].lastName + "\n";
+  for(i = 1; i < identity.length; i++){
+      peopleWithThisOccupation += identity[i].firstName + " " + identity[i].lastName + "\n";
+  }
+  return peopleWithThisOccupation;
+}
+// console.log(getNameByOccupation("programmer"));
+
 
 function getNameById(number){
 
@@ -226,4 +364,4 @@ let childrenList = data.filter(function(person1){
 } else {
   return "No Children"
 }
-}
+}}
