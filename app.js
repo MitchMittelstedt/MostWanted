@@ -26,111 +26,104 @@ function app(people){
 
 
 function no(people, options = ['id', 'gender', 'dob', 'height', 'weight', 'eye color', 'occupation']) {
-    // var options = [];
-    var stringOfOptions = options.toString()
-    var searchType = promptFor("Which characteristic(s) would you like to use to narrow down your search? Enter one of the following: " + stringOfOptions.replace(",", ", "), otherProperties).toLowerCase();
-    for(var i = 0; i < options.length; i++) {
-        if (searchType == options[i]) {   
-        var temp = options[i];                           
-        options[i] = options[options.length - 1];
-        options[options.length - 1] = temp;
-        options.pop();
-    }
+  // var options = [];
+  var stringOfOptions = options.toString()
+  var searchType = promptFor("Which characteristic(s) would you like to use to narrow down your search? Enter one of the following: " + stringOfOptions.replace(",", ", "), otherProperties).toLowerCase();
+  for(var i = 0; i < options.length; i++) {
+    if (searchType == options[i]) {
+      var temp = options[i];
+      options[i] = options[options.length - 1];
+      options[options.length - 1] = temp;
+      options.pop();
+  }
 }
 
+  switch(searchType) {
+    case 'id':
+    var number = promptFor("What is their ID number?", chars)
+    var foundPerson = getNameById(number, people);
+    mainMenu(foundPerson, people);
+    break;
+    //or create another map function that filters till foundPeople.length is 1
 
-    
-        switch(searchType) {
-            case 'id':
-            var number = promptFor("What is their ID number?", chars)
-            var foundPerson = getNameById(number, people);
-            mainMenu(foundPerson, people);
-            break;
-            //or create another map function that filters till foundPeople.length is 1
- 
-        
-            case 'gender':
-            var gender = promptFor("What is their gender? Male or female?", chars)
-            var foundPeople = getNameByGender(gender, people);
-            alert("People with this gender:" + "\n" + foundPeople);
-            people = getListByGender(gender, people);
-            if(people.length > 1) { 
-                no(people, options)}
-                else {
-                    mainMenu(people[0], data);
-                }
-            break;
 
-        
-            case 'dob':
-            var dob = promptFor("What is their date of birth?", chars);
-            var foundPeople = getNameByDob(dob, people);
-            alert("People with this dob:" + "\n" + foundPeople);
-            people = getListByDob(dob, people);
-            if(people.length > 1) { 
-                no(people, options)}
-                else {
-                    mainMenu(people[0], data);
-                }
-            break;
- 
-        
-            case 'height':
-            var height = promptFor("What is their height? In Inches", chars);
-            var foundPeople = getNameByHeight(height, people);
-            alert("People with this height:" + "\n" + foundPeople);
-            people = getListByHeight(height, people);
-            if(people.length > 1) { 
-                no(people, options)}
-                else {
-                    mainMenu(people[0], data);
-                }
-            break;
-            
-        
-            case 'weight':
-            var weight = promptFor("What is their weight? In pounds.", chars)
-            var foundPeople = getNameByWeight(weight, people);
-            alert("People with this weight:" + "\n" + foundPeople);
-            people = getListByWeight(Weight, people);
-            if(people.length > 1) { 
-                no(people, options)}
-                else {
-                    mainMenu(people[0], data);
-                }
-            break;
-        
-            case 'eye color':
-            var eyeColor = promptFor("What is their eye color?", chars);
-            var foundPeople = getNameByEyeColor(eyeColor,people);
-            alert("People with this eye color:" + "\n" + foundPeople);
-            people = getListByEyeColor(eyeColor, people);
-            if(people.length > 1) { 
-                no(people, options)}
-                else {
-                    mainMenu(people[0], data);
-                    
-                }
-            break;
-        
-            case 'occupation':
-            var occupation = promptFor("What is their occupation?", chars)
-            var foundPeople = getNameByOccupation(occupation, people);
-            alert("People with this occupation:" + "\n" + foundPeople);
-            people = getListByOccupation(occupation, people);
-            console.log(people);
-            if(people.length > 1) { 
-                no(people, options)}
-                else {
-                    mainMenu(people[0], data);
-                }
-            break;    
-        }    
-         
+    case 'gender':
+    var gender = promptFor("What is their gender? Male or female?", chars)
+    var foundPeople = getNameByGender(gender, people);
+    alert("People with this gender:" + "\n" + foundPeople);
+    people = getListByGender(gender, people);
+    if(people.length > 1) { 
+        no(people, options)}
+        else {
+            mainMenu(people[0], data);
         }
-                
+    break;
 
 
+    case 'dob':
+    var dob = promptFor("What is their date of birth?", chars);
+    var foundPeople = getNameByDob(dob, people);
+    alert("People with this dob:" + "\n" + foundPeople);
+    people = getListByDob(dob, people);
+    if(people.length > 1) { 
+        no(people, options)}
+        else {
+            mainMenu(people[0], data);
+        }
+    break;
+
+    case 'height':
+    var height = promptFor("What is their height? In Inches", chars);
+    var foundPeople = getNameByHeight(height, people);
+    alert("People with this height:" + "\n" + foundPeople);
+    people = getListByHeight(height, people);
+    if(people.length > 1) { 
+        no(people, options)}
+        else {
+            mainMenu(people[0], data);
+        }
+    break;
+
+    case 'weight':
+    var weight = promptFor("What is their weight? In pounds.", chars)
+    var foundPeople = getNameByWeight(weight, people);
+    alert("People with this weight:" + "\n" + foundPeople);
+    people = getListByWeight(Weight, people);
+    if(people.length > 1) { 
+        no(people, options)}
+        else {
+            mainMenu(people[0], data);
+        }
+    break;
+
+    case 'eye color':
+    var eyeColor = promptFor("What is their eye color?", chars);
+    var foundPeople = getNameByEyeColor(eyeColor,people);
+    alert("People with this eye color:" + "\n" + foundPeople);
+    people = getListByEyeColor(eyeColor, people);
+    if(people.length > 1) { 
+        no(people, options)}
+        else {
+            mainMenu(people[0], data);
+            
+        }
+    break;
+
+    case 'occupation':
+    var occupation = promptFor("What is their occupation?", chars)
+    var foundPeople = getNameByOccupation(occupation, people);
+    alert("People with this occupation:" + "\n" + foundPeople);
+    people = getListByOccupation(occupation, people);
+    console.log(people);
+    if(people.length > 1) { 
+        no(people, options)}
+        else {
+            mainMenu(people[0], data);
+        }
+    break;
+  }    
+}
+      
 
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
@@ -210,7 +203,8 @@ function displayPerson(person){
 function promptFor(question, valid){
   do{
     var response = prompt(question).trim();
-  } while(!response || !valid(response));
+  } 
+  while(!response || !valid(response));
   return response;
 }
 
@@ -229,322 +223,307 @@ function otherProperties(input){
 }
 
 function getAge(givenDate){
-let currentDate = new Date()
-let dateSplit = givenDate.split("/")
-if ((currentDate.getMonth() + 1) >= dateSplit[0] && currentDate.getDate() >= dateSplit[1]) {
-return (currentDate.getFullYear() - dateSplit[2])
-} else {
-  return ((currentDate.getFullYear() - dateSplit[2]) - 1)
-}
-}
-
- function displayParents(person){
- let parents = person.parents
-
- if (parents.length > 1) {
-  
-
-     var personParentsInfo = "Parents:" + getNameById(parents[0]) + " and " + getNameById(parents[1])
-    return  personParentsInfo 
-} else if (parents.length == 1){
-  var defineFirstParent = "Parent:" + getNameById(parents[0])
-    return defineFirstParent
-} else { 
-  return "No Parents Found"
-}
+  let currentDate = new Date();
+  let dateSplit = givenDate.split("/");
+  if ((currentDate.getMonth() + 1) >= dateSplit[0] && currentDate.getDate() >= dateSplit[1]) {
+    return (currentDate.getFullYear() - dateSplit[2]);
+  } 
+  else {
+    return ((currentDate.getFullYear() - dateSplit[2]) - 1);
+  }
 }
 
- function displaySpouse(person){
+function displayParents(person){
+  let parents = person.parents;
+  if (parents.length > 1) {
+    var personParentsInfo = "Parents:" + getNameById(parents[0]) + " and " + getNameById(parents[1]);
+    return  personParentsInfo; 
+  } 
+  else if (parents.length == 1) {
+    var defineFirstParent = "Parent:" + getNameById(parents[0]);
+    return defineFirstParent;
+  } 
+  else {
+    return "No Parents Found";
+  }
+}
+
+function displaySpouse(person){
   if (person.currentSpouse == null) {
-  return "No Spouse Found"
-}
-return getNameById(person.currentSpouse)
-
+    return "No Spouse Found";
+  }
+  return getNameById(person.currentSpouse);
 }
 
 function displayImmediateFamily(person){
-  let family = displayParents(person) + "\n" + displaySpouse(person) + "\n" + getChildren(person)
+  let family = displayParents(person) + "\n" + displaySpouse(person) + "\n" + getChildren(person);
   alert(family);
 }
-
 
 
 function getChildren(person){
   let childrenList = data.filter(function(person1){
     if (person1.parents.length >1) {
       if (person.id == person1.parents[0] || person.id == person1.parents[1]) {
-        return person1
+        return person1;
       } else {
       }}
     else if (person.id == person1.parents[0]) {
-      return person1
+      return person1;
   
-    }else {
+    }
+    else {
   }})
     if(childrenList.length >= 1){
-    var childrenNames = "Childrens: "
-    for (var i = 0; i < childrenList.length; i++)
-    childrenNames += childrenList[i].firstName + " " + childrenList[i].lastName + ", "
-    return  childrenNames
-  } else {
+      var childrenNames = "Childrens: ";
+      for (var i = 0; i < childrenList.length; i++);
+      childrenNames += childrenList[i].firstName + " " + childrenList[i].lastName + ", ";
+      return  childrenNames;
+    } 
+    else {
     return "No Children"
   }
-  }
+}
 
 function getGrandChildren(generation, person){
-    let childrenList = data.filter(function(person1){
-      if (person1.parents.length > 1) {
-        if (person.id == person1.parents[0] || person.id == person1.parents[1]) {
-          return person1
-        } else {
-        }}
-      else if (person.id == person1.parents[0]) {
-        return person1
-    
-      }else {
+  let childrenList = data.filter(function(person1){
+    if (person1.parents.length > 1) {
+      if (person.id == person1.parents[0] || person.id == person1.parents[1]) {
+        return person1;
+      } 
+      else {
+      }
+    }
+    else if (person.id == person1.parents[0]) {
+      return person1;
+  
+    }
+    else {
     }})
     if (generation == 1){
-      return childrenList
-    }
-    else { 
-      var grandChildrenList = []
-      for (var i = 0; i < childrenList.length; i++){
-      
-         grandChildrenList = grandChildrenList.concat(getGrandChildren(generation + 1, childrenList[i]))
-       
-    }
-    return grandChildrenList
-   }
+      return childrenList;
   }
+  else { 
+    var grandChildrenList = [];
+    for (var i = 0; i < childrenList.length; i++){
+    
+        grandChildrenList = grandChildrenList.concat(getGrandChildren(generation + 1, childrenList[i]))
+      
+  }
+  return grandChildrenList
+  }
+}
 
 function displaySpouse(person){
-    if (person.currentSpouse == null) {
+  if (person.currentSpouse == null) {
     return "No Spouse Found"
   }
   return getNameById(person.currentSpouse)
-  
-   }
+}
 
    
 function displayDescendants(person){
-let grandChildrenNames = "Grandchildrens: "
-for (var i = 0; i < getGrandChildren(0, person).length; i++) {
+  let grandChildrenNames = "Grandchildrens: ";
+  for (var i = 0; i < getGrandChildren(0, person).length; i++) {
     grandChildrenNames += getGrandChildren(0, person)[0].firstName + " " + getGrandChildren(0, person)[0].lastName;
-}
-if (getGrandChildren(0, person).length == 0){
+  }
+  if (getGrandChildren(0, person).length == 0){
     alert("No GrandChildrens")
-} else {
+  }
+  else {
     alert(grandChildrenNames)
+  }
 }
-}
-  
-
-
-
-
-
-
-
-
-
-
 
 function getNameById(number){
-    let identity = data.filter(function(person){
-        if (number == person.id) {
-            return true; 
-        } 
-        else {
-            return false;
-        }
-    })
-    return identity[0];
+  let identity = data.filter(function(person){
+    if (number == person.id) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  })
+  return identity[0];
 } 
  
 function getNameByGender(gender, data) {
-    let identity = data.filter(function(person){
-        if (gender == person.gender) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    });
-    var peopleWithThisGender = identity[0].firstName + " " + identity[0].lastName + "\n";
-    for( var i = 1; i < identity.length; i++){
-        peopleWithThisGender += identity[i].firstName + " " + identity[i].lastName + "\n";
+  let identity = data.filter(function(person){
+    if (gender == person.gender) {
+      return true;
     }
-    return peopleWithThisGender;
+    else {
+      return false;
+    }
+  });
+  var peopleWithThisGender = identity[0].firstName + " " + identity[0].lastName + "\n";
+  for( var i = 1; i < identity.length; i++){
+      peopleWithThisGender += identity[i].firstName + " " + identity[i].lastName + "\n";
   }
-  // console.log(getNameByGender("male"));
+  return peopleWithThisGender;
+}
+
 
 function getListByGender(gender, people) {
-    let identity = people.filter(function(person){
-        if (gender == person.gender) {
-        return true;
-        }
-        else {
-        return false;
-        }
-    });
-    return identity;
-  }
-  // console.log(getNameByHeight("65"));
+  let identity = people.filter(function(person){
+    if (gender == person.gender) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  });
+  return identity;
+}
   
   
 function getNameByDob(dob, people) {
-    let identity = people.filter(function(person){
-        if (dob == person.dob) {
-        return true;
-        }
-        else {
-        return false;
-        }
-    });
-    var peopleWithThisDob = identity[0].firstName + " " + identity[0].lastName + "\n";
-    for( var i = 1; i < identity.length; i++){
-        peopleWithThisDob += identity[i].firstName + " " + identity[i].lastName + "\n";
+  let identity = people.filter(function(person){
+    if (dob == person.dob) {
+      return true;
     }
-    return peopleWithThisDob;
+    else {
+      return false;
+    }
+  });
+  var peopleWithThisDob = identity[0].firstName + " " + identity[0].lastName + "\n";
+  for( var i = 1; i < identity.length; i++){
+    peopleWithThisDob += identity[i].firstName + " " + identity[i].lastName + "\n";
+  }
+  return peopleWithThisDob;
 }
 
+
 function getListByDob(dob, people) {
-    let identity = people.filter(function(person){
-        if (dob == person.dob) {
-        return true;
-        }
-        else {
-        return false;
-        }
-    });
-    return identity;
-  }
-  // console.log(getNameByHeight("65"));
-  
-
-  
-  function getNameByHeight(height, people) {
-    let identity = people.filter(function(person){
-        if (height == person.height) {
-        return true;
-        }
-        else {
-        return false;
-        }
-    });
-    var peopleWithThisHeight = identity[0].firstName + " " + identity[0].lastName + "\n";
-    for(var i = 1; i < identity.length; i++){
-        peopleWithThisHeight += identity[i].firstName + " " + identity[i].lastName + "\n";
+  let identity = people.filter(function(person){
+    if (dob == person.dob) {
+      return true;
     }
-    return peopleWithThisHeight;
-  }
-
-
-
-  function getListByHeight(height, people) {
-    let identity = people.filter(function(person){
-        if (height == person.height) {
-        return true;
-        }
-        else {
-        return false;
-        }
-    });
-    return identity;
-  }
-  // console.log(getNameByHeight("65"));
-  
-  
-  function getNameByWeight(weight, people) {
-    let identity = people.filter(function(person){
-        if (weight == person.weight) {
-        return true;
-        }
-        else {
-        return false;
-        }
-    });
-    var peopleWithThisWeight = identity[0].firstName + " " + identity[0].lastName + "\n";
-    for(var i = 1; i < identity.length; i++){
-        peopleWithThisWeight += identity[i].firstName + " " + identity[i].lastName + "\n";
+    else {
+      return false;
     }
-    return peopleWithThisWeight;
-  }
-  // console.log(getNameByWeight("115"));
+  });
+  return identity;
+}
 
-
-  function getListByWeight(weight, people) {
-    let identity = people.filter(function(person){
-        if (weight == person.weight) {
-        return true;
-        }
-        else {
-        return false;
-        }
-    });
-    return identity;
-  }
   
-  
-  function getNameByEyeColor(eyeColor, people){
-    
-    let identity = people.filter(function(person){
-      if (eyeColor == person.eyeColor) {
-        return true;
-      }
-      else {
-        return false;
-      }
-    });
-    var peopleWithThisEyeColor = identity[0].firstName + " " + identity[0].lastName + "\n";
-    for (var i = 1; i < identity.length; i++) {
-  
-        peopleWithThisEyeColor += identity[i].firstName + " " + identity[i].lastName + "\n";
+function getNameByHeight(height, people) {
+  let identity = people.filter(function(person){
+    if (height == person.height) {
+      return true;
     }
-  return peopleWithThisEyeColor
-  }
-  // console.log(getNameByEyeColor("brown"));
-
-
-  function getListByEyeColor(eyeColor, people) {
-    let identity = people.filter(function(person){
-        if (eyeColor == person.eyeColor) {
-        return true;
-        }
-        else {
-        return false;
-        }
-    });
-    return identity;
-  }
-
-  
-  function getNameByOccupation(occupation, people) {
-    let identity = people.filter(function(person){
-        if (occupation == person.occupation) {
-        return true;
-        }
-        else {
-        return false;
-        }
-    });
-    var peopleWithThisOccupation = identity[0].firstName + " " + identity[0].lastName + "\n";
-    for(var i = 1; i < identity.length; i++){
-        peopleWithThisOccupation += identity[i].firstName + " " + identity[i].lastName + "\n";
+    else {
+      return false;
     }
-    return peopleWithThisOccupation;
+  });
+  var peopleWithThisHeight = identity[0].firstName + " " + identity[0].lastName + "\n";
+  for(var i = 1; i < identity.length; i++){
+    peopleWithThisHeight += identity[i].firstName + " " + identity[i].lastName + "\n";
   }
+  return peopleWithThisHeight;
+}
 
-  // console.log(getNameByOccupation("programmer"));
 
-  function getListByOccupation(occupation, people) {
-    let identity = people.filter(function(person){
-        if (occupation == person.occupation) {
-        return true;
-        }
-        else {
-        return false;
-        }
-    });
-    return identity;
+function getListByHeight(height, people) {
+  let identity = people.filter(function(person){
+    if (height == person.height) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  });
+  return identity;
+}
+  
+  
+function getNameByWeight(weight, people) {
+  let identity = people.filter(function(person){
+    if (weight == person.weight) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  });
+  var peopleWithThisWeight = identity[0].firstName + " " + identity[0].lastName + "\n";
+  for(var i = 1; i < identity.length; i++){
+    peopleWithThisWeight += identity[i].firstName + " " + identity[i].lastName + "\n";
   }
+  return peopleWithThisWeight;
+}
+
+
+function getListByWeight(weight, people) {
+  let identity = people.filter(function(person){
+    if (weight == person.weight) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  });
+  return identity;
+}
+  
+  
+function getNameByEyeColor(eyeColor, people){
+  
+  let identity = people.filter(function(person){
+    if (eyeColor == person.eyeColor) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  });
+  var peopleWithThisEyeColor = identity[0].firstName + " " + identity[0].lastName + "\n";
+  for (var i = 1; i < identity.length; i++) {
+
+    peopleWithThisEyeColor += identity[i].firstName + " " + identity[i].lastName + "\n";
+  }
+return peopleWithThisEyeColor
+}
+
+
+function getListByEyeColor(eyeColor, people) {
+  let identity = people.filter(function(person){
+    if (eyeColor == person.eyeColor) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  });
+  return identity;
+}
+
+
+function getNameByOccupation(occupation, people) {
+  let identity = people.filter(function(person){
+      if (occupation == person.occupation) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  });
+  var peopleWithThisOccupation = identity[0].firstName + " " + identity[0].lastName + "\n";
+  for(var i = 1; i < identity.length; i++){
+    peopleWithThisOccupation += identity[i].firstName + " " + identity[i].lastName + "\n";
+  }
+  return peopleWithThisOccupation;
+}
+
+
+function getListByOccupation(occupation, people) {
+  let identity = people.filter(function(person){
+    if (occupation == person.occupation) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  });
+  return identity;
+}
