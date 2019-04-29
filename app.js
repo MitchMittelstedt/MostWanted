@@ -152,11 +152,11 @@ function mainMenu(person, people){
 }
 
 
-function searchByName(data){
+function searchByName(people){
   var firstName = promptFor("What is the person's first name?", chars);
   var lastName = promptFor("What is the person's last name?", chars);
 
-  var foundPerson = data.filter(function(person){
+  var foundPerson = people.filter(function(person){
     if(person.firstName.toLowerCase() == firstName.toLowerCase() && person.lastName.toLowerCase() == lastName.toLowerCase()){
       return true;
     }
@@ -314,8 +314,8 @@ function getChildren(person){
 
  
  
-   function getNameByGender(gender, people) {
-    let identity = data.filter(function(person){
+  function getNameByGender(gender, people) {
+    let identity = people.filter(function(person){
         if (gender == person.gender) {
         return true;
         }
@@ -323,10 +323,9 @@ function getChildren(person){
         return false;
         }
     });
-    var peopleWithThisGender = identity[0].firstName + " " + identity[0].lastName + "\n";
-    for( var i = 1; i < identity.length; i++){
-        peopleWithThisGender += identity[i].firstName + " " + identity[i].lastName + "\n";
-    }
+    var peopleWithThisGender = "People who are males: " + identity.map(function(person){
+      return "\n" + person.firstName + " " + person.lastName;
+    })
     return peopleWithThisGender;
   }
   // console.log(getNameByGender("male"));
@@ -341,20 +340,19 @@ function getChildren(person){
         return false;
         }
     });
-    var peopleWithThisDob = identity[0].firstName + " " + identity[0].lastName + "\n";
-    for( var i = 1; i < identity.length; i++){
-        peopleWithThisDob += identity[i].firstName + " " + identity[i].lastName + "\n";
-    }
+    var peopleWithThisDob = "People who has this Dob: " + identity.map(function(person){
+      return "\n" + person.firstName + " " + person.lastName;
+    })
     return peopleWithThisDob;
+  }
+
    function displaySpouse(person){
     if (person.currentSpouse == null) {
     return "No Spouse Found"
   }
   return getNameById(person.currentSpouse)
-  
    }
-  }
-  
+
   function getNameByHeight(height, people) {
     let identity = people.filter(function(person){
         if (height == person.height) {
@@ -364,10 +362,9 @@ function getChildren(person){
         return false;
         }
     });
-    var peopleWithThisHeight = identity[0].firstName + " " + identity[0].lastName + "\n";
-    for(var i = 1; i < identity.length; i++){
-        peopleWithThisHeight += identity[i].firstName + " " + identity[i].lastName + "\n";
-    }
+    var peopleWithThisHeight = "People who has this height: " + identity.map(function(person){
+      return "\n" + person.firstName + " " + person.lastName;
+    })
     return peopleWithThisHeight;
   }
 
@@ -382,10 +379,6 @@ function getChildren(person){
         return false;
         }
     });
-    var peopleWithThisHeight = identity[0].firstName + " " + identity[0].lastName + "\n";
-    for(var i = 1; i < identity.length; i++){
-        peopleWithThisHeight += identity[i].firstName + " " + identity[i].lastName + "\n";
-    }
     return identity;
   }
   // console.log(getNameByHeight("65"));
@@ -400,10 +393,9 @@ function getChildren(person){
         return false;
         }
     });
-    var peopleWithThisWeight = identity[0].firstName + " " + identity[0].lastName + "\n";
-    for(var i = 1; i < identity.length; i++){
-        peopleWithThisWeight += identity[i].firstName + " " + identity[i].lastName + "\n";
-    }
+    var peopleWithThisWeight = "People who has this weight: " + identity.map(function(person){
+      return "\n" + person.firstName + " " + person.lastName;
+    })
     return peopleWithThisWeight;
   }
   // console.log(getNameByWeight("115"));
@@ -419,11 +411,9 @@ function getChildren(person){
         return false;
       }
     });
-    var peopleWithThisEyeColor = identity[0].firstName + " " + identity[0].lastName + "\n";
-    for (var i = 1; i < identity.length; i++) {
-  
-        peopleWithThisEyeColor += identity[i].firstName + " " + identity[i].lastName + "\n";
-    }
+    var peopleWithThisEyeColor = "People who are has this eye color: " + identity.map(function(person){
+      return "\n" + person.firstName + " " + person.lastName;
+    })
   return peopleWithThisEyeColor
   }
   // console.log(getNameByEyeColor("brown"));
@@ -438,10 +428,9 @@ function getChildren(person){
         return false;
         }
     });
-    var peopleWithThisOccupation = identity[0].firstName + " " + identity[0].lastName + "\n";
-    for(var i = 1; i < identity.length; i++){
-        peopleWithThisOccupation += identity[i].firstName + " " + identity[i].lastName + "\n";
-    }
+    var peopleWithThisOccupation = "People who are has this occuppation: " + identity.map(function(person){
+      return "\n" + person.firstName + " " + person.lastName;
+    })
     return peopleWithThisOccupation;
   }
 
