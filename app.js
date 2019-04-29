@@ -48,7 +48,7 @@ function no(people, options = ['id', 'gender', 'dob', 'height', 'weight', 'eye c
 
 
     case 'gender':
-    var gender = promptFor("What is their gender? Male or female?", chars)
+    var gender = promptFor("What is their gender? Male or female?", genderCheck)
     var foundPeople = getNameByGender(gender, people);
     alert("People with this gender:" + "\n" + foundPeople);
     people = getListByGender(gender, people);
@@ -61,10 +61,22 @@ function no(people, options = ['id', 'gender', 'dob', 'height', 'weight', 'eye c
 
 
     case 'dob':
-    var dob = promptFor("What is their date of birth?", chars);
+    var dob = promptFor("What is their dob?", dobCheck);
     var foundPeople = getNameByDob(dob, people);
     alert("People with this dob:" + "\n" + foundPeople);
-    people = getListByDob(dob, people);
+    people = getListByAge(dob, people);
+    if(people.length > 1) { 
+        no(people, options)}
+        else {
+            mainMenu(people[0], data);
+        }
+    break;
+
+    case 'age':
+    var dob = promptFor("What is their age?", ageCheck);
+    var foundPeople = getNameByDob(dob, people);
+    alert("People with this dob:" + "\n" + foundPeople);
+    people = getListByAge(dob, people);
     if(people.length > 1) { 
         no(people, options)}
         else {
@@ -73,7 +85,7 @@ function no(people, options = ['id', 'gender', 'dob', 'height', 'weight', 'eye c
     break;
 
     case 'height':
-    var height = promptFor("What is their height? In Inches", chars);
+    var height = promptFor("What is their height? In Inches", heightCheck);
     var foundPeople = getNameByHeight(height, people);
     alert("People with this height:" + "\n" + foundPeople);
     people = getListByHeight(height, people);
@@ -85,10 +97,10 @@ function no(people, options = ['id', 'gender', 'dob', 'height', 'weight', 'eye c
     break;
 
     case 'weight':
-    var weight = promptFor("What is their weight? In pounds.", chars)
+    var weight = promptFor("What is their weight? In pounds.", weightCheck);
     var foundPeople = getNameByWeight(weight, people);
     alert("People with this weight:" + "\n" + foundPeople);
-    people = getListByWeight(Weight, people);
+    people = getListByWeight(weight, people);
     if(people.length > 1) { 
         no(people, options)}
         else {
@@ -97,7 +109,7 @@ function no(people, options = ['id', 'gender', 'dob', 'height', 'weight', 'eye c
     break;
 
     case 'eye color':
-    var eyeColor = promptFor("What is their eye color?", chars);
+    var eyeColor = promptFor("What is their eye color?", eyeColorCheck).toLowerCase();
     var foundPeople = getNameByEyeColor(eyeColor,people);
     alert("People with this eye color:" + "\n" + foundPeople);
     people = getListByEyeColor(eyeColor, people);
@@ -105,12 +117,11 @@ function no(people, options = ['id', 'gender', 'dob', 'height', 'weight', 'eye c
         no(people, options)}
         else {
             mainMenu(people[0], data);
-            
         }
     break;
 
     case 'occupation':
-    var occupation = promptFor("What is their occupation?", chars)
+    var occupation = promptFor("What is their occupation?", occupationCheck).toLowerCase();
     var foundPeople = getNameByOccupation(occupation, people);
     alert("People with this occupation:" + "\n" + foundPeople);
     people = getListByOccupation(occupation, people);
@@ -220,6 +231,37 @@ function chars(input){
 
 function otherProperties(input){
   return input.toLowerCase() == "id" || input.toLowerCase() == "gender" || input.toLowerCase() == "dob" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "eye color" || input.toLowerCase() == "occupation";
+}
+
+function eyeColorCheck(input){
+  return input.toLowerCase() == "brown" || input.toLowerCase() == "hazel" || input.toLowerCase() == "blue" || input.toLowerCase() == "green" || input.toLowerCase() == "black";
+}
+
+function occupationCheck(input) {
+  return input.toLowerCase() == "programmer"  || input.toLowerCase() == "assistant"  || input.toLowerCase() == "landscaper"  || input.toLowerCase() == "nurse"  || input.toLowerCase() == "student"  || input.toLowerCase() == "architect"  || input.toLowerCase() == "doctor"  || input.toLowerCase() == "politician";
+}
+
+function heightCheck(input) {
+  return input > 53 || input < 81;
+}
+
+function weightCheck(input) {
+  return input > 95 || input < 261;
+}
+
+function genderCheck(input) {
+  return input.toLowerCase() == "male" || input.toLowerCase() == "female";
+}
+
+function ageCheck(input) {
+  return input > 27|| input < 87;
+}
+
+function dobCheck(input) {
+  for (var i = 0; i < data.length; i++) {
+    return input == data[i].dob;
+  }
+  
 }
 
 function getAge(givenDate){
@@ -364,6 +406,8 @@ function getNameByGender(gender, data) {
 }
 
 
+
+
 function getListByGender(gender, people) {
   let identity = people.filter(function(person){
     if (gender == person.gender) {
@@ -406,7 +450,52 @@ function getListByDob(dob, people) {
   return identity;
 }
 
-  
+function getNameByAge(number, people){
+  let ageList = people.filter(function(individual2){
+    if (number == getAge(individual2.dob)){
+      return true
+    }
+    else {
+      return false
+    }
+  });
+  return ageList
+   }
+
+
+function getListByAge(number, people){
+  let ageList = people.filter(function(individual2){
+    if (number == getAge(individual2.dob)){
+      return true
+    }
+    else {
+      return false
+    }
+  });
+  var peopleWithThisAge = identity[0].firstName + " " + identity[0].lastName + "\n";
+  for( var i = 1; i < identity.length; i++){
+    peopleWithThisAge += identity[i].firstName + " " + identity[i].lastName + "\n";
+  }
+  return peopleWithThisDob;
+  }
+
+
+function getAgeByDob(dob, people) {
+let identity = people.filter(function(person){
+  if (dob == person.dob) {
+    return true;
+  }
+  else {
+    return false;
+  }
+});
+var peopleWithThisDob = identity[0].firstName + " " + identity[0].lastName + "\n";
+for( var i = 1; i < identity.length; i++){
+  peopleWithThisDob += identity[i].firstName + " " + identity[i].lastName + "\n";
+}
+return peopleWithThisDob;
+}
+
 function getNameByHeight(height, people) {
   let identity = people.filter(function(person){
     if (height == person.height) {
@@ -439,11 +528,11 @@ function getListByHeight(height, people) {
   
 function getNameByWeight(weight, people) {
   let identity = people.filter(function(person){
-    if (weight == person.weight) {
-      return true;
+    if (weight > person.weight + 5 || weight < person.weight - 5) {
+      return false;
     }
     else {
-      return false;
+      return true;
     }
   });
   var peopleWithThisWeight = identity[0].firstName + " " + identity[0].lastName + "\n";
