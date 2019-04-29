@@ -13,7 +13,7 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
-      no(people);
+      searchByTraits(people);
       
       break;
 
@@ -25,7 +25,7 @@ function app(people){
 }
 
 
-function no(people, options = ['id', 'gender', 'dob', 'age', 'height', 'weight', 'eye color', 'occupation']) {
+function searchByTraits(people, options = ['id', 'gender', 'dob', 'age', 'height', 'weight', 'eye color', 'occupation']) {
   // var options = [];
   var stringOfOptions = options.toString()
   var searchType = promptFor("Which characteristic(s) would you like to use to narrow down your search? Enter one of the following: " + stringOfOptions.replace(",", ", "), otherProperties).toLowerCase();
@@ -41,7 +41,7 @@ function no(people, options = ['id', 'gender', 'dob', 'age', 'height', 'weight',
   switch(searchType) {
     case 'id':
     var number = promptFor("What is their ID number?", chars)
-    var foundPerson = getNameById(number, people);
+    var foundPerson = searchById(number, people);
     mainMenu(foundPerson, people);
     break;
     //or create another map function that filters till foundPeople.length is 1
@@ -51,12 +51,13 @@ function no(people, options = ['id', 'gender', 'dob', 'age', 'height', 'weight',
     var gender = promptFor("What is their gender? Male or female?", genderCheck)
     var foundPeople = getNameByGender(gender, people);
     alert(foundPeople);
-    people = getListByGender(gender, people);
+    people = getObjectsByGender(gender, people);
     if(people.length > 1) { 
-        no(people, options)}
-        else {
-            mainMenu(people[0], data);
-        }
+        searchByTraits(people, options)
+      }
+      else {
+          mainMenu(people[0], data);
+      }
     break;
 
 
@@ -64,9 +65,9 @@ function no(people, options = ['id', 'gender', 'dob', 'age', 'height', 'weight',
     var dob = promptFor("What is their dob?", dobCheck);
     var foundPeople = getNameByDob(dob, people);
     alert(foundPeople);
-    people = getListByAge(dob, people);
+    people = getObjectsByDob(dob, people);
     if(people.length > 1) { 
-        no(people, options)}
+        searchByTraits(people, options)}
         else {
             mainMenu(people[0], data);
         }
@@ -76,9 +77,9 @@ function no(people, options = ['id', 'gender', 'dob', 'age', 'height', 'weight',
     var age = promptFor("What is their age?", ageCheck);
     var foundPeople = getNameByAge(age, people);
     alert(foundPeople);
-    people = getListByAge(age, people);
+    people = getObjectsByAge(age, people);
     if(people.length > 1) { 
-        no(people, options)}
+        searchByTraits(people, options)}
         else {
             mainMenu(people[0], data);
         }
@@ -88,9 +89,9 @@ function no(people, options = ['id', 'gender', 'dob', 'age', 'height', 'weight',
     var height = promptFor("What is their height? In Inches", heightCheck);
     var foundPeople = getNameByHeight(height, people);
     alert(foundPeople);
-    people = getListByHeight(height, people);
+    people = getObjectsByHeight(height, people);
     if(people.length > 1) { 
-        no(people, options)
+        searchByTraits(people, options)
       }
       else {
         mainMenu(people[0], data);
@@ -101,9 +102,9 @@ function no(people, options = ['id', 'gender', 'dob', 'age', 'height', 'weight',
     var weight = promptFor("What is their weight? In pounds.", weightCheck);
     var foundPeople = getNameByWeight(weight, people);
     alert(foundPeople);
-    people = getListByWeight(weight, people);
+    people = getObjectsByWeight(weight, people);
     if(people.length > 1) { 
-        no(people, options)}
+        searchByTraits(people, options)}
         else {
             mainMenu(people[0], data);
         }
@@ -113,9 +114,9 @@ function no(people, options = ['id', 'gender', 'dob', 'age', 'height', 'weight',
     var eyeColor = promptFor("What is their eye color?", eyeColorCheck).toLowerCase();
     var foundPeople = getNameByEyeColor(eyeColor,people);
     alert(foundPeople);
-    people = getListByEyeColor(eyeColor, people);
+    people = getObjectsByEyeColor(eyeColor, people);
     if(people.length > 1) { 
-        no(people, options)}
+        searchByTraits(people, options)}
         else {
             mainMenu(people[0], data);
         }
@@ -125,15 +126,19 @@ function no(people, options = ['id', 'gender', 'dob', 'age', 'height', 'weight',
     var occupation = promptFor("What is their occupation?", occupationCheck).toLowerCase();
     var foundPeople = getNameByOccupation(occupation, people);
     alert(foundPeople);
-    people = getListByOccupation(occupation, people);
+    // people = getObjectsByTrait(trait, people);
+    people = getObjectsByOccupation(occupation, people);
     console.log(people);
     if(people.length > 1) { 
-        no(people, options)}
-        else {
-            mainMenu(people[0], data);
-        }
+      searchByTraits(people, options)
+    }
+    else {
+        mainMenu(people[0], data);
+    }
     break;
   }    
+
+
 }
       
 
@@ -262,32 +267,21 @@ function ageCheck(input) {
 function dobCheck(input) {
   for (var i = 0; i < data.length; i++) {
     return input == data[i].dob;
-  }
-  
-}
-
-function getAge(givenDate){
-  let currentDate = new Date();
-  let dateSplit = givenDate.split("/");
-  if ((currentDate.getMonth() + 1) >= dateSplit[0] && currentDate.getDate() >= dateSplit[1]) {
-    return (currentDate.getFullYear() - dateSplit[2]);
   } 
-  else {
-    return ((currentDate.getFullYear() - dateSplit[2]) - 1);
-  }
 }
 
- function displayParents(person){
- let parents = person.parents
 
- if (parents.length > 1) {
-     var personParentsInfo = "Parents: " + getNameById(parents[0]).firstName + " " + getNameById(parents[0]).lastName + " and " + getNameById(parents[1]).firstName + " " + getNameById(parents[1]).lastName
-    return  personParentsInfo 
+function displayParents(person){
+let parents = person.parents
+
+if (parents.length > 1) {
+    var personParentsInfo = "Parents: " + searchById(parents[0]).firstName + " " + searchById(parents[0]).lastName + " and " + searchById(parents[1]).firstName + " " + searchById(parents[1]).lastName
+  return  personParentsInfo 
 } else if (parents.length == 1){
-  var defineFirstParent = "Parents: " + getNameById(parents[0]).firstName + " " + getNameById(parents[0]).lastName
-    return defineFirstParent
+var defineFirstParent = "Parents: " + searchById(parents[0]).firstName + " " + searchById(parents[0]).lastName
+  return defineFirstParent
 } else { 
-  return "No Parents Found"
+return "No Parents Found"
 }
 }
 
@@ -295,7 +289,7 @@ function displaySpouse(person){
   if (person.currentSpouse == null) {
   return "No Spouse Found"
 }
- var spouseName = "Spouse: " + getNameById(person.currentSpouse).firstName + " " + getNameById(person.currentSpouse).lastName
+ var spouseName = "Spouse: " + searchById(person.currentSpouse).firstName + " " + searchById(person.currentSpouse).lastName
 return spouseName
 
 }
@@ -403,7 +397,19 @@ function getSiblings(person){
 }
 
 
-function getNameById(number){
+function getAge(givenDate){
+  let currentDate = new Date();
+  let dateSplit = givenDate.split("/");
+  if ((currentDate.getMonth() + 1) >= dateSplit[0] && currentDate.getDate() >= dateSplit[1]) {
+    return (currentDate.getFullYear() - dateSplit[2]);
+  } 
+  else {
+    return ((currentDate.getFullYear() - dateSplit[2]) - 1);
+  }
+}
+
+
+function searchById(number){
   let identity = data.filter(function(person){
     if (number == person.id) {
       return true;
@@ -432,9 +438,7 @@ function getNameByGender(gender, data) {
 }
 
 
-
-
-function getListByGender(gender, people) {
+function getObjectsByGender(gender, people) {
   let identity = people.filter(function(person){
     if (gender == person.gender) {
       return true;
@@ -463,7 +467,7 @@ function getNameByDob(dob, people) {
 }
 
 
-function getListByDob(dob, people) {
+function getObjectsByDob(dob, people) {
   let identity = people.filter(function(person){
     if (dob == person.dob) {
       return true;
@@ -492,7 +496,7 @@ function getNameByAge(number, people){
 }
 
 
-function getListByAge(number, people){
+function getObjectsByAge(number, people){
   let ageList = people.filter(function(individual2){
     if (number == getAge(individual2.dob)){
       return true
@@ -514,7 +518,7 @@ let identity = people.filter(function(person){
     return false;
   }
 });
-var peopleWithThisDob = "People who have this dob: " + identity.map(function(person){
+var peopleWithThisAge = "People who have this dob: " + identity.map(function(person){
   return "\n" + person.firstName + " " + person.lastName;
 })
 return peopleWithThisAge;
@@ -537,7 +541,7 @@ function getNameByHeight(height, people) {
 }
 
 
-function getListByHeight(height, people) {
+function getObjectsByHeight(height, people) {
   let identity = people.filter(function(person){
     if (height == person.height) {
       return true;
@@ -566,7 +570,7 @@ function getNameByWeight(weight, people) {
 }
 
 
-function getListByWeight(weight, people) {
+function getObjectsByWeight(weight, people) {
   let identity = people.filter(function(person){
     if (weight == person.weight) {
       return true;
@@ -595,7 +599,7 @@ return peopleWithThisEyeColor
 }
 
 
-function getListByEyeColor(eyeColor, people) {
+function getObjectsByEyeColor(eyeColor, people) {
   let identity = people.filter(function(person){
     if (eyeColor == person.eyeColor) {
       return true;
@@ -623,7 +627,7 @@ function getNameByOccupation(occupation, people) {
   return peopleWithThisOccupation;
 }
 
-function getListByOccupation(occupation, people) {
+function getObjectsByOccupation(occupation, people) {
   let identity = people.filter(function(person){
       if (occupation == person.occupation) {
       return true;
