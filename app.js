@@ -62,36 +62,31 @@ function searchByTraits(people, options = ['id', 'gender', 'dob', 'age', 'height
     case 'dob':
     var dob = promptFor("What is their dob?", dobCheck);
     var foundPeople = getNameByDob(dob, people);
-    alert(foundPeople);
-    people = getObjectsByTrait(foundPeople,getObjectsByDob, dob, people);
+    var people = getObjectsByTrait(foundPeople,getObjectsByDob, dob, people);
     break;
 
     case 'age':
     var age = promptFor("What is their age?", ageCheck);
     var foundPeople = getNameByAge(age, people);
-    alert(foundPeople);
-    people = getObjectsByTrait(foundPeople,getObjectsByAge, age, people);
+    var people = getObjectsByTrait(foundPeople,getObjectsByAge, age, people);
     break;
 
     case 'height':
     var height = promptFor("What is their height? In Inches", heightCheck);
     var foundPeople = getNameByHeight(height, people);
-    alert(foundPeople);
-    people = getObjectsByTrait(foundPeople,getObjectsByHeight, height, people);
+    var people = getObjectsByTrait(foundPeople,getObjectsByHeight, height, people);
     break;
 
     case 'weight':
     var weight = promptFor("What is their weight? In pounds.", weightCheck);
     var foundPeople = getNameByWeight(weight, people);
-    alert(foundPeople);
-    people = getObjectsByTrait(foundPeople,getObjectsByWeight, weight, people);
+    var people = getObjectsByTrait(foundPeople,getObjectsByWeight, weight, people);
     break;
 
     case 'eye color':
     var eyeColor = promptFor("What is their eye color?", eyeColorCheck).toLowerCase();
     var foundPeople = getNameByEyeColor(eyeColor,people);
-    alert(foundPeople);
-    people = getObjectsByTrait(foundPeople,getObjectsByEyeColor, eyeColor, people);
+    var people = getObjectsByTrait(foundPeople,getObjectsByEyeColor, eyeColor, people);
     break;
 
     case 'occupation':
@@ -99,9 +94,6 @@ function searchByTraits(people, options = ['id', 'gender', 'dob', 'age', 'height
     var foundPeople = getNameByOccupation(occupation, people);
     var people = getObjectsByTrait(foundPeople, getObjectsByOccupation, occupation, people);
     break;
-
-   
-  
   }
       if(people.length > 1) { 
       searchByTraits(people, options)
@@ -342,10 +334,11 @@ function getSiblings(person){
   var siblingsList = data.filter(function(possibleSiblings){
    if (person.id == possibleSiblings.id) {
    return false
+  } else if (person.parents[0] == null){
+    return false
   }
   else if (possibleSiblings.parents[0] == null) {
     return false
-
   }
   else if (person.parents[0] == possibleSiblings.parents[0] && person.parents[1] == possibleSiblings.parents[1]) {
   return true
@@ -363,7 +356,11 @@ function getSiblings(person){
   var siblingsNames = "Siblings:" + " " + siblingsList.map(function(sibs){
   return sibs.firstName + " " + sibs.lastName;
  })
- return siblingsNames
+ if (siblingsList == 0){
+   return "No siblings Found"
+ }
+ else{
+ return siblingsNames}
 }
 
 
