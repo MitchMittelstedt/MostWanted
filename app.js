@@ -24,6 +24,12 @@ function app(people){
   }
 }
 
+function getObjectsByTrait(foundPeople, listCallback, trait, people) {
+  alert(foundPeople);
+  let theObjects = listCallback(trait, people);
+  return theObjects;
+}
+
 
 function searchByTraits(people, options = ['id', 'gender', 'dob', 'age', 'height', 'weight', 'eye color', 'occupation']) {
   // var options = [];
@@ -50,95 +56,59 @@ function searchByTraits(people, options = ['id', 'gender', 'dob', 'age', 'height
     case 'gender':
     var gender = promptFor("What is their gender? Male or female?", genderCheck)
     var foundPeople = getNameByGender(gender, people);
-    alert(foundPeople);
-    people = getObjectsByGender(gender, people);
-    if(people.length > 1) { 
-        searchByTraits(people, options)
-      }
-      else {
-          mainMenu(people[0], data);
-      }
+    var people = getObjectsByTrait(foundPeople, getObjectsByGender, gender, people);
     break;
-
 
     case 'dob':
     var dob = promptFor("What is their dob?", dobCheck);
     var foundPeople = getNameByDob(dob, people);
     alert(foundPeople);
-    people = getObjectsByDob(dob, people);
-    if(people.length > 1) { 
-        searchByTraits(people, options)}
-        else {
-            mainMenu(people[0], data);
-        }
+    people = getObjectsByTrait(foundPeople,getObjectsByDob, dob, people);
     break;
 
     case 'age':
     var age = promptFor("What is their age?", ageCheck);
     var foundPeople = getNameByAge(age, people);
     alert(foundPeople);
-    people = getObjectsByAge(age, people);
-    if(people.length > 1) { 
-        searchByTraits(people, options)}
-        else {
-            mainMenu(people[0], data);
-        }
+    people = getObjectsByTrait(foundPeople,getObjectsByAge, age, people);
     break;
 
     case 'height':
     var height = promptFor("What is their height? In Inches", heightCheck);
     var foundPeople = getNameByHeight(height, people);
     alert(foundPeople);
-    people = getObjectsByHeight(height, people);
-    if(people.length > 1) { 
-        searchByTraits(people, options)
-      }
-      else {
-        mainMenu(people[0], data);
-      }
-      break;
+    people = getObjectsByTrait(foundPeople,getObjectsByHeight, height, people);
+    break;
 
     case 'weight':
     var weight = promptFor("What is their weight? In pounds.", weightCheck);
     var foundPeople = getNameByWeight(weight, people);
     alert(foundPeople);
-    people = getObjectsByWeight(weight, people);
-    if(people.length > 1) { 
-        searchByTraits(people, options)}
-        else {
-            mainMenu(people[0], data);
-        }
+    people = getObjectsByTrait(foundPeople,getObjectsByWeight, weight, people);
     break;
 
     case 'eye color':
     var eyeColor = promptFor("What is their eye color?", eyeColorCheck).toLowerCase();
     var foundPeople = getNameByEyeColor(eyeColor,people);
     alert(foundPeople);
-    people = getObjectsByEyeColor(eyeColor, people);
-    if(people.length > 1) { 
-        searchByTraits(people, options)}
-        else {
-            mainMenu(people[0], data);
-        }
+    people = getObjectsByTrait(foundPeople,getObjectsByEyeColor, eyeColor, people);
     break;
 
     case 'occupation':
     var occupation = promptFor("What is their occupation?", occupationCheck).toLowerCase();
     var foundPeople = getNameByOccupation(occupation, people);
-    alert(foundPeople);
-    // people = getObjectsByTrait(trait, people);
-    people = getObjectsByOccupation(occupation, people);
-    console.log(people);
-    if(people.length > 1) { 
+    var people = getObjectsByTrait(foundPeople, getObjectsByOccupation, occupation, people);
+    break;
+
+   
+  
+  }
+      if(people.length > 1) { 
       searchByTraits(people, options)
     }
     else {
         mainMenu(people[0], data);
-    }
-    break;
-  }    
-
-
+    }   
 }
       
 
