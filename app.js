@@ -31,7 +31,7 @@ function getObjectsByTrait(foundPeople, listCallback, trait, people) {
 }
 
 
-function searchByTraits(people, options = ['id', 'gender', 'dob', 'age', 'height', 'weight', 'eye color', 'occupation']) {
+function searchByTraits(people, options = ['id', 'gender', 'dob', 'age', 'height', 'weight', 'eye color', 'occupation', 'name']) {
   // var options = [];
   var stringOfOptions = options.toString()
   var searchType = promptFor("Which characteristic(s) would you like to use to narrow down your search? Enter one of the following: " + stringOfOptions.replace(",", ", "), otherProperties).toLowerCase();
@@ -93,6 +93,12 @@ function searchByTraits(people, options = ['id', 'gender', 'dob', 'age', 'height
     var occupation = promptFor("What is their occupation?", occupationCheck).toLowerCase();
     var foundPeople = getNameByOccupation(occupation, people);
     var people = getObjectsByTrait(foundPeople, getObjectsByOccupation, occupation, people);
+    break;
+
+    case 'name':
+    var people = new Array(1)
+     people[0] = searchByName(data);
+    
     break;
   }
       if(people.length > 1) { 
@@ -199,7 +205,7 @@ function chars(input){
 }
 
 function otherProperties(input){
-  return input.toLowerCase() == "id" || input.toLowerCase() == "gender" || input.toLowerCase() == "dob" || input.toLowerCase() == "age" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "eye color" || input.toLowerCase() == "occupation";
+  return input.toLowerCase() == "id" || input.toLowerCase() == "gender" || input.toLowerCase() == "name" || input.toLowerCase() == "dob" || input.toLowerCase() == "age" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "eye color" || input.toLowerCase() == "occupation";
 }
 
 function eyeColorCheck(input){
